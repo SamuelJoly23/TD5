@@ -1,5 +1,5 @@
 """
-TD4
+TD5
 Gabriel Maisonneuve
 Samuel Joly   
 """
@@ -56,47 +56,44 @@ mo_gaas_trou = 400;
 #"{:.3f}".format(semi1)
 # ********** Question 1 **********
 # ***** 1a) *****
-# 400K
+print("")
+print("1a)")
+print("400K est la température la plus propice à la domination des porteurs intrinsèques car le graphique démontre qu'il y ait de meilleurs chances que le semi-conducteur soit dans une zone intrinsèque si la température est plus élevée.")
+
 # ***** 1b) *****
+print("")
+print("1b)")
 semi1 = L/(e*A*R1_400);
 semi2 = L/(e*A*R2_400);
 semi3 = L/(e*A*R3_400);
-print("Semi I ‐ ni x mu   = ","{:.4e}".format(semi1))  
-print("Semi II ‐ ni x mu  = ","{:.4e}".format(semi2))
-print("Semi III ‐ ni x mu = ","{:.4e}".format(semi3))
+print("Semi I ‐ ni x mu   = ","{:.4e}".format(semi1), "(cmVsec)^-1")  
+print("Semi II ‐ ni x mu  = ","{:.4e}".format(semi2), "(cmVsec)^-1")
+print("Semi III ‐ ni x mu = ","{:.4e}".format(semi3), "(cmVsec)^-1")
 
 # ***** 1c) *****
+print("")
+print("1c)")
 mu_ge = mo_ge + mo_ge_trou;
 mu_si = mo_si + mo_si_trou;
 mu_ga = mo_gaas + mo_gaas_trou;
 
 # semi 1
 semi1_test1 = semi1/mu_ge;
-semi1_test2 = semi1/mu_si;
+semi1_test2 = semi1/mu_si; # cette valeur correspond au graphique donc semi1 = Silicium
 semi1_test3 = semi1/mu_ga;
-print("test semi1")
-print("{:.4e}".format(semi1_test1))
-print("{:.4e}".format(semi1_test2))
-print("{:.4e}".format(semi1_test3))
+
 
 # semi 2
-semi2_test1 = semi2/mu_ge;
+semi2_test1 = semi2/mu_ge; # cette valeur correspond au graphique donc semi2 = Germanium
 semi2_test2 = semi2/mu_si;
 semi2_test3 = semi2/mu_ga;
-print("test semi 2")
-print("{:.4e}".format(semi2_test1))
-print("{:.4e}".format(semi2_test2))
-print("{:.4e}".format(semi2_test3))
+
 
 # semi 3
 semi3_test1 = semi3/mu_ge;
 semi3_test2 = semi3/mu_si;
-semi3_test3 = semi3/mu_ga;
+semi3_test3 = semi3/mu_ga; # cette valeur correspond au graphique donc semi3 = Gallium
 
-print("test semi 3")
-print("{:.4e}".format(semi3_test1))
-print("{:.4e}".format(semi3_test2))
-print("{:.4e}".format(semi3_test3))
 
 print("Semi I   = Si")
 print("Semi II  = Ge")
@@ -106,8 +103,9 @@ print("Nous avons ensuite identifié la nature des semi conducteur avec ces rés
 
 # ********** Question 2 **********
 # ***** 2a) *****
+print("")
+print("2a)")
 
-# ***** 2b) *****
 semi1_300 = L/(e*A*R1_300);
 semi2_300 = L/(e*A*R2_300);
 semi3_300 = L/(e*A*R3_300);
@@ -119,21 +117,56 @@ test_ge = semi2_300/mu_ge;
 test_si = semi1_300/mu_si;
 test_ga = semi3_300/mu_ga;
 print("test dopage")
-print("si","{:.4e}".format(test_si))
-print("Ge","{:.4e}".format(test_ge))
-print("Ga","{:.4e}".format(test_ga))
+print("si","{:.4e}".format(test_si)) # pas dope car égal a la valeur théorique
+print("Ge","{:.4e}".format(test_ge)) # dope car ne correspond pas a la valeur theorique
+print("Ga","{:.4e}".format(test_ga)) # dope car ne correspond pas a la valeur theorique
 print("La valeur de ni du silicium est la meme dans nos calculs et dans le graphique donc il n'est pas dopé")
+
+# Calculs avec hyphotèse que les semi-conducteurs sont dopés N
+R2N = L/(e*Nd*A*mo_ge)         
+R3N = L/(e*Nd*A*mo_gaas)    
+print("test dopage N")
+print("R Ge","{:.4e}".format(R2N),"ohms")
+print("R Ga","{:.4e}".format(R3N),"ohms") 
+print("La valeur de la résistance du gallium calculé ci-dessus concorde avec la valeur de la résistance du semi-conducteur 3 dans l'énoncé")
+print("Cela prouve que le gallium est dopé N")
+
+# Calcul pour le dernier semiconducteur qui sera dopé P
+R2P =  L/(e*Na*A*mo_ge_trou)
+print("test dopage P")
+print("R Ge","{:.4e}".format(R2P),"ohms")
+print("La valeur de la résistance du germanium calculé ci-dessus concorde avec la valeur de la résistance du semi-conducteur 2 dans l'énoncé")
+print("Cela prouve que le germanium est dopé P")
+print("Le calcul de la résistance confirme que le gallium (2e semi-conducteur) est dopé P")
+
+# ***** 2b) *****
+print("")
+print("2b)")
+# calcul Nc
+Nc_semi1 = (2*(mo*2*math.pi*me_si*k*300)**(3/2))/(h**3)
+Nc_semi2 = (2*(mo*2*math.pi*me_ge*k*300)**(3/2))/(h**3)
+Nc_semi3 = (2*(mo*2*math.pi*me_gaas*k*300)**(3/2))/(h**3)
+
+# calcul Nv
+Nv_semi1 = (2*(mo*2*math.pi*me_si_trou*k*300)**(3/2))/(h**3)
+Nv_semi2 = (2*(mo*2*math.pi*me_ge_trou*k*300)**(3/2))/(h**3)
+Nv_semi3 = (2*(mo*2*math.pi*me_gaas_trou*k*300)**(3/2))/(h**3)
 
 print("Semi 1 ‐ Nc = ",Nc_semi1, "cm‐3 / Nv = ",Nv_semi1, "cm‐3")
 print("Semi 2 ‐ Nc = ",Nc_semi2, "cm‐3 / Nv = ",Nv_semi2, "cm‐3")
 print("Semi 3 ‐ Nc = ",Nc_semi3, "cm‐3 / Nv = ",Nv_semi3, "cm‐3")
 
 # ***** 2c) *****
-
+print("")
+print("2c)")
+print("À l'aide de la table 23.1, il est possible de trouver la valeur de la bande interdite en eV des trois semi-conducteurs à 300K")
+eg_semi1 = 1.14
+eg_semi2 = 0.67
+eg_semi3 = 1.43
 print("Semi 1 ‐ Eg = ",eg_semi1, "eV")
 print("Semi 2 ‐ Eg = ",eg_semi2, "eV")
 print("Semi 3 ‐ Eg = ",eg_semi3, "eV")
-
+print("")
 
 
 
